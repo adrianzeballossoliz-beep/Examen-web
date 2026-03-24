@@ -1,0 +1,319 @@
+/* --- Variables Actualizadas --- */
+:root {
+    --primary: #d32f2f; /* Rojo para acentos */
+    --primary-dark: #b71c1c;
+    --accent: #ffca28; /* Amarillo dorado */
+    --success: #388e3c; /* Verde éxito */
+    --bg-body: #ffffff; /* Fondo del cuerpo blanco */
+    --card-bg: rgba(248, 249, 250, 0.9); /* Fondo de tarjetas con ligera transparencia para que se vea el fondo */
+    --text-main: #2d3436;
+    --text-muted: #636e72;
+    --radius: 20px;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Base --- */
+body { 
+    font-family: 'Poppins', sans-serif; 
+    background: var(--bg-body); 
+    margin: 0; 
+    color: var(--text-main);
+    scroll-behavior: smooth;
+}
+
+/* --- Header Sutil (Como en el diseño anterior) --- */
+.main-header {
+    background: linear-gradient(135deg, #fdfdfd 0%, #f1f3f5 100%);
+    color: var(--text-main);
+    text-align: center;
+    padding: 60px 20px;
+    position: relative;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.main-header h1 {
+    font-size: 3rem;
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.main-header p {
+    font-weight: 300;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
+/* --- Badge de Ganancias Adaptado --- */
+.ganancias-badge {
+    display: inline-block;
+    background: #f1f3f5;
+    color: var(--primary);
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-top: 20px;
+    font-size: 1.1rem;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+}
+
+/* --- Layout --- */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 25px; }
+
+/* Sección del Menú con Imagen de Fondo */
+.menu-section {
+    /* Ruta a tu imagen de fondo. Asegúrate de que sea correcta */
+    background-image: url('../images/disfruta-de-un-espacio.jpg'); 
+    background-size: cover; /* Cubre todo el espacio sin deformarse */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* No repite la imagen */
+    padding: 80px 0; /* Espaciado generoso */
+    position: relative; /* Para poder poner una capa superpuesta si es necesario */
+}
+
+/* Capa superpuesta opcional para mejorar el contraste del texto sobre la imagen */
+/*
+.menu-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3); /* Capa blanca semi-transparente *
+    z-index: 1;
+}
+*/
+
+.section-title {
+    font-size: 2.2rem; /* Un poco más grande para destacar sobre el fondo */
+    font-weight: 700;
+    margin-bottom: 50px;
+    border-left: 6px solid var(--primary);
+    padding-left: 15px;
+    position: relative; /* Para estar por encima de la capa superpuesta si se usa */
+    z-index: 2;
+}
+
+/* --- Grid de Menú --- */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    position: relative; /* Para estar por encima de la capa superpuesta si se usa */
+    z-index: 2;
+}
+
+/* --- Tarjetas (Cards) Premium Adaptadas para Imagen de Fondo --- */
+.card {
+    background: var(--card-bg); /* Fondo con ligera transparencia */
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(0,0,0,0.03);
+    backdrop-filter: blur(5px); /* Efecto de desenfoque sutil tras la tarjeta */
+}
+
+.card:hover { 
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Caja de Imagen */
+.img-box { 
+    position: relative; 
+    height: 250px;
+    overflow: hidden;
+}
+
+.img-box img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transition: transform 0.5s ease;
+}
+
+.card:hover .img-box img { transform: scale(1.08); }
+
+/* Etiqueta de Precio flotante */
+.price-label {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: var(--success);
+    color: white;
+    padding: 8px 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Información de la Tarjeta */
+.card-info { padding: 30px; }
+
+.card-info h3 { 
+    margin: 0 0 12px 0; 
+    font-size: 1.6rem;
+    color: var(--text-main); 
+}
+
+.card-info p { 
+    color: var(--text-muted); 
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* --- Formulario Integrado --- */
+.form-pedido { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+}
+
+.form-pedido input { 
+    padding: 14px 18px; 
+    border: 2px solid #e2e8f0; 
+    border-radius: 12px; 
+    font-family: inherit;
+    transition: border-color 0.3s;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo de input semi-transparente */
+}
+
+.form-pedido input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.form-pedido button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 16px; 
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-pedido button:hover { 
+    background: var(--primary-dark);
+}
+
+/* --- Tabla de Historial --- */
+.historial {
+    background: #f8f9fa;
+    padding: 40px; 
+    border-radius: var(--radius);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    margin-top: 80px; 
+}
+
+.table-container { overflow-x: auto; }
+
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 20px;
+}
+
+th { 
+    background: #ffffff; 
+    color: var(--text-main); 
+    font-weight: 700;
+    text-transform: none; 
+    font-size: 0.9rem;
+    letter-spacing: normal; 
+    padding: 18px;
+    border-bottom: 2px solid #eee;
+}
+
+td { 
+    padding: 20px 18px; 
+    border-bottom: 1px solid #eee; 
+    font-size: 1rem;
+}
+
+tr:last-child td { border-bottom: none; }
+
+tr:hover { background-color: #f1f3f5; }
+
+/* Estilo para los nombres en la tabla */
+td:first-child { font-weight: 600; color: var(--text-main); } 
+td.text-green { color: var(--success); font-weight: 700; }
+
+body {
+    /* Usamos la ruta exacta según tu árbol de archivos */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.1)), 
+                      url('images/espacio.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* Para que el resto de la página no tape el fondo, asegúrate de que 
+   los contenedores principales sean transparentes */
+.container, .menu-section {
+    background: transparent !important;
+}
+
+
+.main-header {
+    /* Un degradado de rojo oscuro a negro transparente para que combine con el fondo */
+    background: linear-gradient(135deg, #8e0000 0%, #1a1a1a 100%);
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+    border-bottom: 4px solid #fbc02d; /* El toque dorado de la bandera */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.main-header h1 {
+    font-size: 3.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Sombra al texto para que resalte */
+}
+
+.main-header p {
+    color: #fbc02d; /* Eslogan en dorado */
+    font-weight: 600;
+}
+
+
+
+
+
+
+
+.form-pedido {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Espacio entre nombre, correo y botón */
+    margin-top: 15px;
+}
+
+.form-pedido input {
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.form-pedido input:focus {
+    outline: none;
+    border-color: var(--rojo); /* Resalta en rojo al escribir */
+    box-shadow: 0 0 8px rgba(198, 40, 40, 0.2);
+}

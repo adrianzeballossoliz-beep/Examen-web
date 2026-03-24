@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ restaurante.nombre }} - Pedidos Online</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="main-header">
+        <h1>{{ restaurante.nombre }}</h1>
+        <p>{{ restaurante.eslogan }}</p>
+        <div class="ganancias-badge">Total Recaudado: Bs. {{ "%.2f"|format(ingresos) }}</div>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">Nuestro Menú Especial</h2>
+        
+        <div class="menu-grid">
+            {% for plato in menu %}
+            <div class="card">
+                <div class="img-box">
+                    <img src="{{ url_for('static', filename='css/images/' + plato.imagen.split('/')[-1]) }}" alt="{{ plato.nombre_plato }}">
+                    <span class="price-label">Bs. {{ plato.precio }}</span>
+                </div>
+                <div class="card-info">
+                    <h3>{{ plato.nombre_plato }}</h3>
+                    <p>{{ plato.descripcion }}</p>
+                    
+                    <form action="/realizar_pedido" method="POST" class="form-pedido">
+                        <input type="hidden" name="plato_id" value="{{ plato.id }}">
+                        
+                        <input type="text" name="cliente" placeholder="Tu nombre completo" required>
+                        <input type="email" name="correo" placeholder="correo@ejemplo.com" required>
+                        
+                        <button type="submit">Pedir Ahora</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <section class="historial">
+            <h3>Registro de Ventas Recientes</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Correo Electrónico</th> <th>Plato</th>
+                            <th>Precio</th>
+                            <th>Fecha/Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in pedidos %}
+                        <tr>
+                            <td><strong>{{ p.nombre_cliente }}</strong></td>
+                            <td class="email-text">{{ p.correo_cliente }}</td>
+                            <td>{{ p.plato_pedido }}</td>
+                            <td class="text-green">Bs. {{ p.precio_pagado }}</td>
+                            <td class="text-muted">{{ p.fecha_pedido }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
