@@ -26,6 +26,7 @@ def index():
     # Lista de los últimos 5 pedidos realizados
     ultimos_pedidos = conn.execute('SELECT * FROM pedidos ORDER BY id DESC LIMIT 5').fetchall()
     conn.close()
+    
     return render_template('index.html', 
                            restaurante=restaurante, 
                            menu=menu, 
@@ -34,32 +35,9 @@ def index():
 
 @app.route('/realizar_pedido', methods=['POST'])
 def realizar_pedido():
+    # Esta es la versión completa con correo
     nombre_cliente = request.form['cliente']
-    plato_id = request.form['plato_id']
-    fecha_hoy = datetime.now().strftime("%Y-%m-%d %H:%M")
-
-    conn = get_db_connection()
-    plato = conn.execute('SELECT nombre_plato, precio FROM menu_almuerzo WHERE id = ?', (plato_id,)).fetchone()
-    
-    if plato:
-        conn.execute('''
-            INSERT INTO pedidos (nombre_cliente, plato_pedido, precio_pagado, fecha_pedido)
-            VALUES (?, ?, ?, ?)
-        ''', (nombre_cliente, plato['nombre_plato'], plato['precio'], fecha_hoy))
-        conn.commit()
-    conn.close()
-    
-    return redirect(url_for('index'))
-
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
-    
-    
-    
-@app.route('/realizar_pedido', methods=['POST'])
-def realizar_pedido():
-    nombre_cliente = request.form['cliente']
-    correo_cliente = request.form['correo'] # <--- Recibimos el correo
+    correo_cliente = request.form['correo'] 
     plato_id = request.form['plato_id']
     fecha_hoy = datetime.now().strftime("%d/%m/%Y %H:%M")
 
@@ -73,5 +51,10 @@ def realizar_pedido():
             VALUES (?, ?, ?, ?, ?)
         ''', (nombre_cliente, correo_cliente, plato['nombre_plato'], plato['precio'], fecha_hoy))
         conn.commit()
+    
     conn.close()
     return redirect(url_for('index'))
+
+if __name__ == '__main__':
+    # Esto es para que funcione en tu PC (Local)
+    app.run(debug=True, port=5000)
