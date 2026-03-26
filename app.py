@@ -35,7 +35,7 @@ def index():
 
 @app.route('/realizar_pedido', methods=['POST'])
 def realizar_pedido():
-    # Esta es la versión completa con correo
+
     nombre_cliente = request.form['cliente']
     correo_cliente = request.form['correo'] 
     plato_id = request.form['plato_id']
@@ -45,7 +45,6 @@ def realizar_pedido():
     plato = conn.execute('SELECT nombre_plato, precio FROM menu_almuerzo WHERE id = ?', (plato_id,)).fetchone()
     
     if plato:
-        # Añadimos 'correo_cliente' al INSERT
         conn.execute('''
             INSERT INTO pedidos (nombre_cliente, correo_cliente, plato_pedido, precio_pagado, fecha_pedido)
             VALUES (?, ?, ?, ?, ?)
@@ -55,6 +54,7 @@ def realizar_pedido():
     conn.close()
     return redirect(url_for('index'))
 
-if __name__ == '__main__':
-    # Esto es para que funcione en tu PC (Local)
-    app.run(debug=True, port=5000)
+if __name__ == "__main__":
+    # Render asigna un puerto dinámico, esto lo lee automáticamente
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
